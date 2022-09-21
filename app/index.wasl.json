@@ -1,181 +1,202 @@
 {
-    "graph": {
-        "nodes": {
-            "log": {
-                "src": "./plugins/log.js"
+    "components": {
+        "average": {
+            "src": "./plugins/average.js",
+            "children": {
+                "threshold": true
+            }
+        },
+        "threshold": {
+            "src": "./plugins/threshold.js",
+            "threshold": 500,
+            "children": {
+                "ui.phaser.game.player.jump": true
+            }
+        },
+        "synthetic": {
+            "src": "https://raw.githubusercontent.com/brainsatplay/htil/nightly/plugins/devices/synthetic/index.js",
+            "children": {
+                "datastreams.start": true
+            }
+        },
+        "ganglion": {
+            "src": "https://raw.githubusercontent.com/brainsatplay/htil/nightly/plugins/devices/ganglion/index.js",
+            "children": {
+                "datastreams.start": true
+            }
+        },
+        "muse": {
+            "src": "https://raw.githubusercontent.com/brainsatplay/htil/nightly/plugins/devices/muse/index.js",
+            "children": {
+                "datastreams.start": true
+            }
+        },
+        "datastreams": {
+            "src": "https://raw.githubusercontent.com/brainsatplay/htil/nightly/plugins/datastreams/index.wasl.json",
+            "children": {
+                "ui.timeseries": true,
+                "average": true
+            }
+        },
+        "ui": {
+            "tagName": "div",
+            "style": {
+                "position": "absolute",
+                "top": "0px",
+                "left": "0px",
+                "width": "100%",
+                "height": "100%"
             },
-            "average": {
-                "src": "./plugins/average.js"
-            },
-            "threshold": {
-                "src": "./plugins/threshold.js",
-                "threshold": 500
-            },
-            "synthetic": {
-                "src": "https://raw.githubusercontent.com/brainsatplay/htil/nightly/plugins/devices/synthetic/index.js"
-            },
-            "ganglion": {
-                "src": "https://raw.githubusercontent.com/brainsatplay/htil/nightly/plugins/devices/ganglion/index.js"
-            },
-            "muse": {
-                "src": "https://raw.githubusercontent.com/brainsatplay/htil/nightly/plugins/devices/muse/index.js"
-            },
-            "datastreams": {
-                "src": "https://raw.githubusercontent.com/brainsatplay/htil/nightly/plugins/datastreams/index.wasl.json"
-            },
-            "ui": {
-                "tagName": "div",
-                "style": {
-                    "position": "absolute",
-                    "top": "0px",
-                    "left": "0px",
-                    "width": "100%",
-                    "height": "100%"
+            "components": {
+                "timeseries": {
+                    "style": {
+                        "position": "absolute",
+                        "bottom": "15px",
+                        "right": "15px",
+                        "width": "250px",
+                        "height": "150px"
+                    },
+                    "src": "https://raw.githubusercontent.com/brainsatplay/brainsatplay-starter-kit/nightly/plugins/timeseries/index.js"
                 },
-                "graph": {
-                    "nodes": {
-                        "timeseries": {
-                            "style": {
-                                "position": "absolute",
-                                "bottom": "15px",
-                                "right": "15px",
-                                "width": "250px",
-                                "height": "150px"
+                "button_1": {
+                    "attributes": {
+                        "innerHTML": "Start synthetic data generation"
+                    },
+                    "children": {
+                        "synthetic": true
+                    },
+                    "src": "https://raw.githubusercontent.com/brainsatplay/htil/nightly/plugins/ui/button/index.js"
+                },
+                "button_2": {
+                    "attributes": {
+                        "innerHTML": "Connect Ganglion"
+                    },
+                    "src": "https://raw.githubusercontent.com/brainsatplay/htil/nightly/plugins/ui/button/index.js",
+                    "children": {
+                        "ganglion": true
+                    }
+                },
+                "button_3": {
+                    "attributes": {
+                        "innerHTML": "Connect Muse"
+                    },
+                    "src": "https://raw.githubusercontent.com/brainsatplay/htil/nightly/plugins/ui/button/index.js",
+                    "children": {
+                        "muse": true
+                    }
+                },
+                "jump": {
+                    "attributes": {
+                        "innerHTML": "Jump Main Character"
+                    },
+                    "src": "https://raw.githubusercontent.com/brainsatplay/htil/nightly/plugins/ui/button/index.js",
+                    "children": {
+                        "ui.phaser.game.player.jump": true
+                    }
+                },
+                "companionJump": {
+                    "attributes": {
+                        "innerHTML": "Jump Companion"
+                    },
+                    "src": "https://raw.githubusercontent.com/brainsatplay/htil/nightly/plugins/ui/button/index.js",
+                    "children": {
+                        "ui.phaser.game.companion.jump": true
+                    }
+                },
+                "phaser": {
+                    "src": "https://raw.githubusercontent.com/garrettmflynn/phaser/nightly/src/index.wasl.json",
+                    "overrides": {
+                        "game": {
+                            "preload": {
+                                "setBaseURL": "https://raw.githubusercontent.com/garrettmflynn/phaser/main/assets",
+                                "tilemapTiledJSON": [
+                                    [
+                                        "map",
+                                        "map.json"
+                                    ]
+                                ],
+                                "spritesheet": [
+                                    [
+                                        "tiles",
+                                        "tiles.png",
+                                        {
+                                            "frameWidth": 70,
+                                            "frameHeight": 70
+                                        }
+                                    ]
+                                ],
+                                "image": [
+                                    [
+                                        "coin",
+                                        "coinGold.png"
+                                    ]
+                                ],
+                                "atlas": [
+                                    [
+                                        "player",
+                                        "player.png",
+                                        "player.json"
+                                    ]
+                                ]
                             },
-                            "src": "https://raw.githubusercontent.com/brainsatplay/brainsatplay-starter-kit/nightly/plugins/timeseries/index.js"
-                        },
-                        "button_1": {
-                            "attributes": {
-                                "innerHTML": "Start synthetic data generation"
+                            "config": {
+                                "physics": {
+                                    "default": "arcade",
+                                    "arcade": {
+                                        "gravity": {
+                                            "y": 500
+                                        }
+                                    }
+                                },
+                                "scene": {
+                                    "key": "main",
+                                    "create": {
+                                        "src": "https://raw.githubusercontent.com/garrettmflynn/phaser/nightly/scripts/create.js"
+                                    }
+                                }
                             },
-                            "src": "https://raw.githubusercontent.com/brainsatplay/htil/nightly/plugins/ui/button/index.js"
-                        },
-                        "button_2": {
-                            "attributes": {
-                                "innerHTML": "Connect Ganglion"
-                            },
-                            "src": "https://raw.githubusercontent.com/brainsatplay/htil/nightly/plugins/ui/button/index.js"
-                        },
-                        "button_3": {
-                            "attributes": {
-                                "innerHTML": "Connect Muse"
-                            },
-                            "src": "https://raw.githubusercontent.com/brainsatplay/htil/nightly/plugins/ui/button/index.js"
-                        },
-
-                        "jump": {
-                            "attributes": {
-                                "innerHTML": "Jump Main Character"
-                            },
-                            "src": "https://raw.githubusercontent.com/brainsatplay/htil/nightly/plugins/ui/button/index.js"
-                        },
-
-                        "companionJump": {
-                            "attributes": {
-                                "innerHTML": "Jump Companion"
-                            },
-                            "src": "https://raw.githubusercontent.com/brainsatplay/htil/nightly/plugins/ui/button/index.js"
-                        },
-
-                        "phaser": {
-                            "src": "https://raw.githubusercontent.com/garrettmflynn/phaser/nightly/src/index.wasl.json",
-                            "plugins": {
-                                "game": {
-                                    "preload": {
-                                        "setBaseURL": "https://raw.githubusercontent.com/garrettmflynn/phaser/main/assets",
-                                        "tilemapTiledJSON": [
-                                            [
-                                                "map",
-                                                "map.json"
-                                            ]
-                                        ],
-                                        "spritesheet": [
-                                            [
-                                                "tiles",
-                                                "tiles.png",
-                                                {
-                                                    "frameWidth": 70,
-                                                    "frameHeight": 70
-                                                }
-                                            ]
-                                        ],
-                                        "image": [
-                                            [
-                                                "coin",
-                                                "coinGold.png"
-                                            ]
-                                        ],
-                                        "atlas": [
-                                            [
-                                                "player",
-                                                "player.png",
-                                                "player.json"
-                                            ]
-                                        ]
+                            "components": {
+                                "cursors": {
+                                    "src": "https://raw.githubusercontent.com/garrettmflynn/phaser/nightly/src/plugins/cursors/index.js"
+                                },
+                                "player": {
+                                    "src": "https://raw.githubusercontent.com/garrettmflynn/phaser/nightly/src/plugins/player/index.js",
+                                    "position": {
+                                        "x": 200,
+                                        "y": 200
                                     },
-                                    "config": {
-                                        "physics": {
-                                            "default": "arcade",
-                                            "arcade": {
-                                                "gravity": {
-                                                    "y": 500
-                                                }
-                                            }
-                                        },
-                                        "scene": {
-                                            "key": "main",
-                                            "create": {
-                                                "src": "https://raw.githubusercontent.com/garrettmflynn/phaser/nightly/scripts/create.js"
-                                            }
+                                    "size": {
+                                        "offset": {
+                                            "height": -8
                                         }
                                     },
-                                    "graph": {
-                                        "nodes": {
-                                            "cursors": {
-                                                "src": "https://raw.githubusercontent.com/garrettmflynn/phaser/nightly/src/plugins/cursors/index.js"
-                                            },
-                                            "player": {
-                                                "src": "https://raw.githubusercontent.com/garrettmflynn/phaser/nightly/src/plugins/player/index.js",
-                                                "position": {
-                                                    "x": 200,
-                                                    "y": 200
-                                                },
-                                                "size": {
-                                                    "offset": {
-                                                        "height": -8
-                                                    }
-                                                },
-                                                "bounce": 0.2,
-                                                "collideWorldBounds": false,
-                                                "create": {
-                                                    "src": "https://raw.githubusercontent.com/garrettmflynn/phaser/nightly/scripts/player/create/main.js"
-                                                },
-                                                "update": {
-                                                    "src": "https://raw.githubusercontent.com/garrettmflynn/phaser/nightly/scripts/player/update.js"
-                                                }
-                                            },
-                                            
-                                            "companion": {
-                                                "src": "https://raw.githubusercontent.com/garrettmflynn/phaser/nightly/src/plugins/player/index.js",
-                                                "position": {
-                                                    "x": 100,
-                                                    "y": 200
-                                                },
-                                                "size": {
-                                                    "offset": {
-                                                        "height": -8
-                                                    }
-                                                },
-                                                "bounce": 0.2,
-                                                "collideWorldBounds": false,
-                                                "create": {
-                                                    "src": "https://raw.githubusercontent.com/garrettmflynn/phaser/nightly/scripts/player/create/companion.js"
-                                                },
-                                                "update": {
-                                                    "src": "https://raw.githubusercontent.com/garrettmflynn/phaser/nightly/scripts/player/update.js"
-                                                }
-                                            }
+                                    "bounce": 0.2,
+                                    "collideWorldBounds": false,
+                                    "create": {
+                                        "src": "https://raw.githubusercontent.com/garrettmflynn/phaser/nightly/scripts/player/create/main.js"
+                                    },
+                                    "update": {
+                                        "src": "https://raw.githubusercontent.com/garrettmflynn/phaser/nightly/scripts/player/update.js"
+                                    }
+                                },
+                                "companion": {
+                                    "src": "https://raw.githubusercontent.com/garrettmflynn/phaser/nightly/src/plugins/player/index.js",
+                                    "position": {
+                                        "x": 100,
+                                        "y": 200
+                                    },
+                                    "size": {
+                                        "offset": {
+                                            "height": -8
                                         }
+                                    },
+                                    "bounce": 0.2,
+                                    "collideWorldBounds": false,
+                                    "create": {
+                                        "src": "https://raw.githubusercontent.com/garrettmflynn/phaser/nightly/scripts/player/create/companion.js"
+                                    },
+                                    "update": {
+                                        "src": "https://raw.githubusercontent.com/garrettmflynn/phaser/nightly/scripts/player/update.js"
                                     }
                                 }
                             }
@@ -183,43 +204,13 @@
                     }
                 }
             }
-        },
-        "edges": {
-            "ui.button_1": {
-                "synthetic": {}
-            },
-            "synthetic": {
-                "datastreams.start": {}
-            },
-            "ui.button_2": {
-                "ganglion": {}
-            },
-            "ganglion": {
-                "datastreams.start": {}
-            },
-            "ui.button_3": {
-                "muse": {}
-            },
-            "muse": {
-                "datastreams.start": {}
-            },
-            "datastreams.start": {
-                "ui.timeseries": {},
-                "average": {}
-            },
-            "ui.jump": {
-                "ui.phaser.game.player.jump": {}
-            },
-            "ui.companionJump": {
-                "ui.phaser.game.companion.jump": {}
-            },
-            "average": {
-                "threshold": {},
-                "log": {}
-            },
-             "threshold": {
-                "ui.phaser.game.player.jump": {}
-            }
+        }
+    },
+    
+    "listeners": {
+        "datastreams.start": {
+            "ui.timeseries": true,
+            "average": true
         }
     }
 }
