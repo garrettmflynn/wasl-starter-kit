@@ -866,9 +866,7 @@ var safeImport = async (uri, opts = {}) => {
       for (let i in importInfo) {
         const { variables, wildcard, path } = importInfo[i];
         const isAbsolute = path[0] !== ".";
-        console.log("Path", path, uri);
         let correctPath = get(path, uri);
-        console.log("correctPath", correctPath);
         if (isAbsolute) {
           const base = get(path, nodeModules);
           const getPath = (path2) => get(get(path2, base), rootRelativeTo, true);
